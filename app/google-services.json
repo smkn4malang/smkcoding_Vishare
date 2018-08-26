@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "11097832881",
+    "firebase_url": "https://vishare-b5d8f.firebaseio.com",
+    "project_id": "vishare-b5d8f",
+    "storage_bucket": "vishare-b5d8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11097832881:android:47fc912e5878495a",
+        "android_client_info": {
+          "package_name": "com.irfan.ilham.tugasakhir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11097832881-m225rc85o2svm0lsc0iv4kr122cb7rvd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBO9DlIbhUWmomrA_dr-wyKaRYZDMPayU0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
