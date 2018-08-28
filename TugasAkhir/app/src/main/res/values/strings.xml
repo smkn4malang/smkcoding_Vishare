@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Vishare</string>
+    <string name="Daftar">Daftar</string>
+    <string name="Masuk">Masuk</string>
+    <string name="Lanjutkan">Lanjutkan</string>
+    <string name="Lewati">Lewati</string>
+    <string name="Kembali">Kembali</string>
+    <string name="Email">Alamat Email</string>
+    <string name="KataSandi">Kata Sandi</string>
+    <string name="LupaSandi">Lupa kata sandi?</string>
+    <string name="NamaPengguna">Nama Pengguna</string>
+    <string name="TanggalLahir">Tanggal lahir</string>
+    <string name="L">Laki - laki</string>
+    <string name="P">Perempuan</string>
+    <string name="VerifikasiKataSandi">Verifikasi Kata Sandi</string>
+    <string name="KodeVerifikasi">Kode Verifikasi</string>
+    <string name="NegaraKota">Negara - Kota</string>
+    <string name="JenisKelamin">Jenis Kelamin</string>
+    <string name="Deskripsi">Deskripsi</string>
+    <string name="EditProfil">Edit Profil</string>
+    <string name="VideoSaya">Video Saya</string>
+    <string name="Komentar">Komentar</string>
+    <string name="Video">Video</string>
+    <string name="Detail">Detail</string>
+    <string name="Sampul">Sampul</string>
+    <string name="Judul">Judul</string>
+    <string name="Kategori">Kategori</string>
+    <string name="Upload">Upload</string>
+    <string name="AddCategory">Add Category</string>
+    <string name="Update">Update</string>
+    <string name="Delete">Delete</string>
+
+    <string name="UserManage">User Manage</string>
+    <string name="VideoManage">Video Manage</string>
+    <string name="CategoryManager">Category Manager</string>
+    <string name="VishareAdmin">Vishare_Admin</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
