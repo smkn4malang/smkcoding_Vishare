@@ -29,13 +29,13 @@
     <string name="AddCategory">Add Category</string>
     <string name="Update">Update</string>
     <string name="Delete">Delete</string>
+    <string name="Tanya">?</string>
 
     <string name="UserManage">User Manage</string>
     <string name="VideoManage">Video Manage</string>
     <string name="CategoryManager">Category Manager</string>
+    <string name="Keluar">Logout</string>
+    <string name="Switch">Switch to User Mode</string>
     <string name="VishareAdmin">Vishare_Admin</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

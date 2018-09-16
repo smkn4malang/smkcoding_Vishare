@@ -77,7 +77,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/L"
-                    android:textColor="@color/GreenLight" />
+                    android:textColor="@color/GreenLight"
+                    android:checked="true"/>
 
                 <RadioButton
                     android:id="@+id/P"

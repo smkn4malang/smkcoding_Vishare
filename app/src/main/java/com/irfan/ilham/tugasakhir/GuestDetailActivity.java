@@ -12,6 +12,7 @@ public class GuestDetailActivity extends AppCompatActivity {
 
     private Button daftar, login;
     private TextView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class GuestDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GuestDetailActivity.this, RegisterActivity.class));
+                finish();
             }
         });
 
@@ -32,6 +34,7 @@ public class GuestDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GuestDetailActivity.this, LogInActivity.class));
+                finish();
             }
         });
 
@@ -39,8 +42,16 @@ public class GuestDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                startActivity(new Intent(GuestDetailActivity.this, HomeActivity.class));
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 }

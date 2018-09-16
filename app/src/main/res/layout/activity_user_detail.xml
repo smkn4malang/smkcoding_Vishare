@@ -1,178 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical"
     tools:context=".UserDetailActivity">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/profile_example" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/BlackOverlay"
-            android:orientation="vertical"
-            android:paddingTop="10dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="120dp"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/profile_example" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ILHAM IRFAN"
-                android:textAlignment="center"
-                android:textColor="@color/GreenLight"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:layout_weight="1"
-                    android:text="10 Pengikut"
-                    android:textAlignment="center"
-                    android:textColor="@color/GreenLight" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:layout_weight="1"
-                    android:text="19 Video"
-                    android:textAlignment="center"
-                    android:textColor="@color/GreenLight" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
+        <RelativeLayout
+            android:id="@+id/idProfile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Email"
-            android:textColor="@color/Green"
-            android:textSize="10sp" />
+            android:layout_height="0dp"
+            android:layout_weight="2">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="user24@gmail.com"
-            android:textColor="@color/Green" />
+            <ImageView
+                android:id="@+id/ProfileBG"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_example" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/TanggalLahir"
-            android:textColor="@color/Green"
-            android:textSize="10sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/BlackOverlay"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="04 januari 2002"
-            android:textColor="@color/Green" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ProfileDetails"
+                    android:layout_width="120dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/profile_example" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/JenisKelamin"
-            android:textColor="@color/Green"
-            android:textSize="10sp" />
+                <TextView
+                    android:id="@+id/userNameDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ILHAM IRFAN"
+                    android:textAlignment="center"
+                    android:textColor="@color/GreenLight"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/L"
-            android:textColor="@color/Green" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/NegaraKota"
-            android:textColor="@color/Green"
-            android:textSize="10sp" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:text="10 Pengikut"
+                        android:textAlignment="center"
+                        android:textColor="@color/GreyLight" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Indonesia - malang"
-            android:textColor="@color/Green" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:layout_weight="1"
+                        android:text="19 Video"
+                        android:textAlignment="center"
+                        android:textColor="@color/GreyLight" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/Deskripsi"
-            android:textColor="@color/Green"
-            android:textSize="10sp" />
+                </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lorem Ipsum blablablabla blablabla bAWDNILAEFJ NUAWEFI jnfaeio oijnaefgi"
-            android:textColor="@color/Green" />
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_layoutUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/WhiteOverlay"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/GreenLight"
+                    app:tabTextColor="@color/Green" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            </LinearLayout>
 
-            <Button
-                android:layout_width="0dp"
+            <ProgressBar
+                android:id="@+id/progresProfile"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_bg_filled"
-                android:text="@string/EditProfil"
-                android:textStyle="bold" />
+                android:layout_alignParentRight="true" />
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_bg_filled"
-                android:text="@string/VideoSaya"
-                android:textStyle="bold" />
+        </RelativeLayout>
 
-        </LinearLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpagerUser"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3" />
 
     </LinearLayout>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/KembaliUserDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Kembali"
+        android:textColor="@color/GreyLight"
+        android:layout_margin="20dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/userPlus"
+        android:layout_width="151dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="-10dp"
+        android:src="@drawable/icon_add"
+        app:backgroundTint="@color/Grey"
+        app:elevation="20dp"
+        app:layout_anchor="@id/idProfile"
+        app:layout_anchorGravity="bottom|right"
+        app:useCompatPadding="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/userEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_edit"
+        app:backgroundTint="@color/Grey"
+        app:elevation="20dp"
+        app:layout_anchor="@id/userPlus"
+        app:layout_anchorGravity="bottom|right"
+        app:useCompatPadding="true"
+        android:layout_marginRight="-10dp"
+        android:visibility="invisible"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/userUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_upload"
+        app:backgroundTint="@color/Grey"
+        app:elevation="20dp"
+        app:layout_anchor="@id/userEdit"
+        app:layout_anchorGravity="bottom|right"
+        app:useCompatPadding="true"
+        android:layout_marginRight="-10dp"
+        android:visibility="invisible"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/userLogOut"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_logout"
+        app:backgroundTint="@color/Grey"
+        app:elevation="20dp"
+        app:layout_anchor="@id/userUpload"
+        app:layout_anchorGravity="bottom|center"
+        app:useCompatPadding="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="-10dp"
+        android:visibility="invisible"/>
+
+</android.support.design.widget.CoordinatorLayout>

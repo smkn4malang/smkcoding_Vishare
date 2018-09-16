@@ -28,6 +28,7 @@ public class ChooseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(intentMasuk);
+                finish();
             }
         });
 
@@ -35,6 +36,7 @@ public class ChooseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(intentDaftar);
+                finish();
             }
         });
 

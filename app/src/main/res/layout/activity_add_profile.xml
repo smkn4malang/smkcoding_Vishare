@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".AddProfileActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileAdd"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:src="@color/GreyDark" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/GreenDark">
+
+                <EditText
+                    android:id="@+id/TTLadd"
+                    android:textColor="@color/GreenLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/icon_user"
+                    android:hint="@string/TanggalLahir"
+                    android:inputType="date"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/GreenDark">
+
+                <EditText
+                    android:id="@+id/KotaAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textColor="@color/GreenLight"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/icon_user"
+                    android:hint="@string/NegaraKota"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/GreenDark">
+
+                <EditText
+                    android:id="@+id/DescAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/GreenLight"
+                    android:gravity="top|left"
+                    android:hint="@string/Deskripsi"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:maxLines="3"
+                    android:minLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" />
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/AddSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/btn_bg_filled"
+            android:text="@string/Lanjutkan"
+            android:textColor="@color/GreyDark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ProgresAddProfileDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/GreyDark"
+        android:elevation="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Tunggu sebentar..."
+            android:textColor="@color/GreenLight" />
+    </LinearLayout>
+
+</RelativeLayout>

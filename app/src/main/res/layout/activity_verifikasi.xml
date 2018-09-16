@@ -16,6 +16,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/RegisterUserIdVerifikasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Halo, @user"
@@ -25,6 +26,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/RegisterEmailVerifikasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/GreyDark"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/namaKategoriItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Category 1"
+            android:textColor="@color/GreenLight"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/updateBtnKategoriItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Update"
+            android:textColor="@color/Green" />
+
+        <TextView
+            android:id="@+id/deleteBtnKategoriItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/Delete"
+            android:textColor="@color/Green" />
+
+    </LinearLayout>
+
+</LinearLayout>

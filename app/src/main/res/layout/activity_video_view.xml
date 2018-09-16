@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@android:color/black"
     android:orientation="vertical"
     tools:context=".VideoViewActivity">
 
     <VideoView
+        android:id="@+id/VideoView"
         android:layout_width="match_parent"
-        android:layout_height="220dp" />
+        android:layout_height="250dp"
+        android:layout_gravity="center" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,6 +25,7 @@
         android:paddingTop="10dp">
 
         <TextView
+            android:id="@+id/namaVideoView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nama Video"

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/GreyDark"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileItemUser"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/profile_example" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/usernameItemUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user name"
+                android:textAllCaps="true"
+                android:textColor="@color/GreenLight"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/asalItemUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Indonesia - Malang"
+                android:textColor="@color/Green"
+                android:textSize="8sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/pengikutItemUser"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_white"
+                        android:text="1024"
+                        android:textAlignment="center"
+                        android:textColor="@color/GreyDark"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="pengikut"
+                        android:textAlignment="center"
+                        android:textColor="@color/GreyLight"
+                        android:textSize="8sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/videoItemUser"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_white"
+                    android:text="14"
+                    android:textAlignment="center"
+                    android:textColor="@color/GreyDark"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/Video"
+                    android:textColor="@color/GreyLight"
+                    android:textSize="12sp" />
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="10dp"
+                    android:stepSize="0.5"
+                    android:numStars="5"
+                    android:rating="5"
+                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                    android:isIndicator="false"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

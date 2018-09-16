@@ -11,7 +11,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/GreyDark">
+        android:background="@color/GreyDark"
+        android:elevation="10dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/icon_back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,6 +51,7 @@
             android:padding="20dp">
 
             <TextView
+                android:id="@+id/uploadtextVideoContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/Video"
@@ -51,6 +59,7 @@
                 android:textSize="20sp" />
 
             <VideoView
+                android:id="@+id/uploadVideoContent"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_margin="10dp" />
@@ -88,23 +97,38 @@
                 android:textSize="15sp" />
 
             <EditText
+                android:id="@+id/judulUploadVideo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/GreyDark" />
+                android:background="@color/GreyDark"
+                android:paddingLeft="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/GreyLight"
+                android:inputType="text"/>
 
             <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/Deskripsi"
-            android:textColor="@color/GreyLight"
-            android:textSize="15sp" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/Deskripsi"
+                android:textColor="@color/GreyLight"
+                android:textSize="15sp"
+                android:inputType="textMultiLine"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/GreyDark" />
+                android:minHeight="100dp"
+                android:background="@color/GreyDark"
+                android:paddingLeft="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/GreyLight"
+                android:gravity="top|left"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -117,9 +141,17 @@
 
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="20dp"
+                android:background="@color/GreyDark">
             </Spinner>
+
+            <Button
+                android:id="@+id/btnUploadVideo"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg_filled"
+                android:text="@string/Upload"/>
 
         </LinearLayout>
 

@@ -1,60 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".HomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/TopBarHome"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/GreyDark"
+            android:elevation="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/search"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/icon_search" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:text="@string/app_name"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/GreenLight"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/userDetail"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/icon_user" />
+
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/GreyDark"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/GreenLight"
+            app:tabTextColor="@color/Green" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
         android:background="@color/GreyDark"
+        android:elevation="10dp"
         android:orientation="horizontal"
-        android:elevation="10dp">
+        android:visibility="invisible">
 
         <ImageView
-            android:id="@+id/search"
+            android:id="@+id/searchClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/icon_close"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Cari..."
+            android:textColorHint="@color/GreyLight"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:inputType="text"
+            />
+
+        <ImageView
+            android:id="@+id/searchButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
             android:src="@drawable/icon_search" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:layout_margin="10dp"
-            android:text="@string/app_name"
-            android:textAllCaps="true"
-            android:textColor="@color/GreenLight"
-            android:textSize="25dp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/userDetail"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/icon_user"/>
-
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/GreyDark"
-        app:tabMode="fixed"
-        app:tabTextColor="@color/Green"
-        app:tabSelectedTextColor="@color/GreenLight"/>
-
-</LinearLayout>
+</RelativeLayout>

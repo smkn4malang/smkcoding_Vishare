@@ -33,6 +33,7 @@
         android:padding="20dp">
 
         <Button
+            android:id="@+id/UserManage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_bg_filled"
@@ -42,6 +43,7 @@
             android:textColor="@color/GreyDark"/>
 
         <Button
+            android:id="@+id/VideoManage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_bg_filled"
@@ -51,6 +53,7 @@
             android:textColor="@color/GreyDark"/>
 
         <Button
+            android:id="@+id/CategoryManage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_bg_filled"
@@ -58,6 +61,27 @@
             android:textStyle="bold"
             android:layout_marginTop="10dp"
             android:textColor="@color/GreyDark"/>
+
+        <Button
+            android:id="@+id/SwitchToUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg_filled"
+            android:text="@string/Switch"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/GreyDark"/>
+
+        <Button
+            android:id="@+id/LogoutAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg_filled"
+            android:text="@string/Keluar"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/GreyDark"/>
+
     </LinearLayout>
 
 </LinearLayout>

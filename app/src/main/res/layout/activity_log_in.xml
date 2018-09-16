@@ -1,88 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical"
     tools:context=".LogInActivity">
-
-    <TextView
-        android:id="@+id/KembaliLogIn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/Kembali"
-        android:textColor="@color/GreyLight" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/GreenDark">
-
-            <EditText
-                android:id="@+id/EmailLogIn"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:drawablePadding="10dp"
-                android:drawableStart="@drawable/icon_email"
-                android:hint="@string/Email"
-                android:inputType="textEmailAddress"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/GreyLight" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/GreenDark"
-            app:passwordToggleEnabled="true">
-
-            <EditText
-                android:id="@+id/KataSandiLogIn"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:drawablePadding="10dp"
-                android:drawableStart="@drawable/icon_katasandi"
-                android:hint="@string/KataSandi"
-                android:inputType="textPassword"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/GreyLight" />
-        </android.support.design.widget.TextInputLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lupasandi"
+            android:id="@+id/KembaliLogIn"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:text="@string/LupaSandi"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/GreenDark"
-            android:textStyle="italic" />
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/Kembali"
+            android:textColor="@color/GreyLight" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/GreenDark">
+
+                <EditText
+                    android:id="@+id/EmailLogIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/icon_email"
+                    android:hint="@string/Email"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/GreyLight" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/GreenDark"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/KataSandiLogIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/icon_katasandi"
+                    android:hint="@string/KataSandi"
+                    android:inputType="textPassword"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/GreyLight" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/lupasandi"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:text="@string/LupaSandi"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/GreenDark"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/masuk"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/btn_bg_filled"
+            android:text="@string/Masuk"
+            android:textColor="@color/GreyDark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/masuk"
+    <LinearLayout
+        android:id="@+id/ProgresLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/GreyDark"
+        android:elevation="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Tunggu sebentar..."
+            android:textColor="@color/GreenLight" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/AdminAlerLogIn"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/btn_bg_filled"
-        android:text="@string/Masuk"
-        android:textColor="@color/GreyDark"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="invisible">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/Grey"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mode Admin"
+                    android:textAlignment="center"
+                    android:textColor="@color/GreenLight"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/Tanya"
+                    android:textColor="@color/Green"
+                    android:textSize="60dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="masuk dengan mode admin?"
+                    android:textAlignment="center"
+                    android:textColor="@color/GreenLight" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/AdminAlerTidakLogIn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tidak" />
+
+                    <Button
+                        android:id="@+id/AdminAlertIyaLogin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Iya" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</RelativeLayout>
