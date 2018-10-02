@@ -24,7 +24,7 @@
                 android:id="@+id/profileAdd"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
-                android:src="@color/GreyDark" />
+                android:src="@drawable/profile_example" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

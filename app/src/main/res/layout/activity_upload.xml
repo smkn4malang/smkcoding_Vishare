@@ -119,6 +119,7 @@
                 android:inputType="textMultiLine"/>
 
             <EditText
+                android:id="@+id/DeskripsiUploadVideo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="100dp"
@@ -140,9 +141,9 @@
                 android:textSize="15sp" />
 
             <Spinner
+                android:id="@+id/KategoriUploadVideo"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:background="@color/GreyDark">
+                android:layout_height="20dp">
             </Spinner>
 
             <Button

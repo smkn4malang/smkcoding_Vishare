@@ -110,7 +110,6 @@ public class LogInActivity extends AppCompatActivity {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String key = ds.getKey();
-                    Toast.makeText(LogInActivity.this, "Log In Berhasil", Toast.LENGTH_LONG).show();
                     if (key.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                         adminDialog.setVisibility(View.VISIBLE);
                         progress.setVisibility(View.INVISIBLE);

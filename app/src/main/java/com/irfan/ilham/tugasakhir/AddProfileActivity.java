@@ -72,37 +72,56 @@ public class AddProfileActivity extends AppCompatActivity {
                 String KotaInput = Kota.getText().toString().trim();
                 String DescInput = Desc.getText().toString().trim();
 
-                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("deskripsi").setValue(DescInput);
-                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("asal").setValue(KotaInput);
-                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("TTL").setValue(TTLInput).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Submit.setClickable(true);
-                            StorageReference imgRef = mStorageRef.child("images/").child("profile.jpg");
+                if (!imgLink.toString().isEmpty()) {
 
-                            imgRef.putFile(imgLink).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    progress.setVisibility(View.INVISIBLE);
-                                    Toast.makeText(AddProfileActivity.this, "Berhasil mengupload profile", Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(AddProfileActivity.this, HomeActivity.class));
-                                    finish();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    progress.setVisibility(View.INVISIBLE);
-                                    Toast.makeText(AddProfileActivity.this, "Gagal mengupload profile", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        } else {
-                            progress.setVisibility(View.INVISIBLE);
-                            Submit.setClickable(true);
-                            Toast.makeText(AddProfileActivity.this, "Gagal membuat data", Toast.LENGTH_LONG).show();
+                    FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("deskripsi").setValue(DescInput);
+                    FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("asal").setValue(KotaInput);
+                    FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("TTL").setValue(TTLInput).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Submit.setClickable(true);
+                                final StorageReference imgRef = mStorageRef.child("images/").child("profile.jpg");
+
+                                imgRef.putFile(imgLink).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        imgRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("imgUrl").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        progress.setVisibility(View.INVISIBLE);
+                                                        Toast.makeText(AddProfileActivity.this, "Berhasil mengupload profile", Toast.LENGTH_LONG).show();
+                                                        startActivity(new Intent(AddProfileActivity.this, HomeActivity.class));
+                                                        finish();
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        progress.setVisibility(View.INVISIBLE);
+                                        Toast.makeText(AddProfileActivity.this, "Berhasil mengupload profile", Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(AddProfileActivity.this, HomeActivity.class));
+                                        finish();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progress.setVisibility(View.INVISIBLE);
+                                        Toast.makeText(AddProfileActivity.this, "Gagal mengupload profile", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            } else {
+                                progress.setVisibility(View.INVISIBLE);
+                                Submit.setClickable(true);
+                                Toast.makeText(AddProfileActivity.this, "Gagal membuat data", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    Toast.makeText(AddProfileActivity.this, "Profile belum ditambahkan!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

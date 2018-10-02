@@ -67,9 +67,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="12ff8a" />
-                            <entry key="outputName" value="icon_back" />
-                            <entry key="sourceFile" value="F:\MY APL\Image Asset\menu.svg" />
+                            <entry key="outputName" value="dislike_dark_icon" />
+                            <entry key="sourceFile" value="F:\MY APL\Image Asset\New folder\dislike_dark.svg" />
                           </map>
                         </option>
                       </PersistentState>

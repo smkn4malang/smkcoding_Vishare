@@ -18,5 +18,34 @@ public class VideoItems {
         this.videoUrl = videoUrl;
     }
 
-    private String namaVideo, videoUrl;
+    private String namaVideo;
+    private String videoUrl;
+    private int tonton;
+    private float rating;
+
+    public int getTonton() {
+        return tonton;
+    }
+
+    public void setTonton(int tonton) {
+        this.tonton = tonton;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
+
+    private String UID;
 }

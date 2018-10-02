@@ -44,6 +44,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private RadioButton JKSelected, JKL, JKP;
     private StorageReference mStorageRef;
     private Uri imgLink;
+    private Boolean ProfileImgIsEdited = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,29 +82,30 @@ public class EditProfileActivity extends AppCompatActivity {
                 FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("TTL").setValue(TTLInput).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Submit.setClickable(true);
-
-                            StorageReference imgRef = mStorageRef.child("images/profile.jpg");
+                        if (task.isSuccessful() && ProfileImgIsEdited) {
+                            final StorageReference imgRef = mStorageRef.child("images/profile.jpg");
                             imgRef.putFile(imgLink).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    progress.setVisibility(View.INVISIBLE);
-                                    Toast.makeText(EditProfileActivity.this, "Berhasil mengupload profile", Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
-                                    finish();
+                                    imgRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            progress.setVisibility(View.INVISIBLE);
+                                            Toast.makeText(EditProfileActivity.this, "Berhasil mengupload profile", Toast.LENGTH_LONG).show();
+                                            startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
+                                            finish();
+                                        }
+                                    });
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     progress.setVisibility(View.INVISIBLE);
+                                    Submit.setClickable(true);
                                     Toast.makeText(EditProfileActivity.this, "Gagal mengupload profile", Toast.LENGTH_LONG).show();
                                 }
                             });
-
-                        } else
-
-                        {
+                        } else {
                             progress.setVisibility(View.INVISIBLE);
                             Submit.setClickable(true);
                             Toast.makeText(EditProfileActivity.this, "Gagal membuat data", Toast.LENGTH_LONG).show();
@@ -179,6 +181,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 1) {
+                ProfileImgIsEdited = true;
                 Uri selectedImg = data.getData();
                 imgLink = selectedImg;
                 profile.setImageURI(selectedImg);

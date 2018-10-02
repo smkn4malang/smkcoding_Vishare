@@ -8,125 +8,268 @@
     android:orientation="vertical"
     tools:context=".VideoViewActivity">
 
-    <VideoView
-        android:id="@+id/VideoView"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_gravity="center" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/GreyDark"
-        android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp">
-
-        <TextView
-            android:id="@+id/namaVideoView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nama Video"
-            android:textColor="@color/GreenLight"
-            android:textSize="20dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="5dp"
-                android:src="@drawable/profile_example" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="user name"
-                android:textColor="@color/GreenLight" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/ratting" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="1024x ditonton"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/GreyLight"
-                    android:textSize="10sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/GreyBackground"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
         android:orientation="vertical">
 
-        <TextView
+        <VideoView
+            android:id="@+id/VideoView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="@string/Komentar"
-            android:textAlignment="center"
-            android:textColor="@color/GreyLight" />
+            android:layout_height="250dp"
+            android:layout_gravity="center" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/Grey"
+            android:background="@color/GreyDark"
             android:orientation="vertical"
             android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp">
 
+            <TextView
+                android:id="@+id/namaVideoView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama Video"
+                android:textColor="@color/GreenLight"
+                android:textSize="20dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/profile_example" />
-
                 <TextView
+                    android:id="@+id/tontonVideoView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="user name"
+                    android:text="0x ditonton"
+                    android:textColor="@color/GreyLight"
+                    android:textSize="10sp" />
+
+                <RadioGroup
+                    android:id="@+id/RadioGroupVideoView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/DislikeVideoView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/dislike_icon" />
+
+                    <TextView
+                        android:id="@+id/DislikeCountVideoView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text="0 dislike"
+                        android:textColor="@color/GreyLight"
+                        android:textSize="10sp" />
+
+                    <RadioButton
+                        android:id="@+id/LikeVideoView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:button="@drawable/like_icon" />
+
+                    <TextView
+                        android:id="@+id/LikeCountVideoView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:text="0 like"
+                        android:textColor="@color/GreyLight"
+                        android:textSize="10sp" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/GreyBackground"
+                android:paddingTop="5dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/GreyDark"
+                        android:orientation="horizontal"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="5dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/profile_example" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/namaUploaderVideoView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="User name"
+                                    android:textColor="@color/GreyLight" />
+
+                                <TextView
+                                    android:id="@+id/SubscribeCountVideoView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="0 Pengikut"
+                                    android:textColor="@color/GreyLight"
+                                    android:textSize="10sp" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/SubscribeVideoView"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="Ikuti"
+                                android:textColor="@color/GreenLight" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Dupublikasikan pada"
+                                android:textColor="@color/GreyLight"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/TanggalVideoView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="1 Januari 2000"
+                                android:textColor="@color/GreyLight"
+                                android:textSize="10sp" />
+
+                        </LinearLayout>
+
+                        <RatingBar
+                            android:id="@+id/ratingVideoView"
+                            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:rating="5"
+                            android:stepSize="0.5" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/DescVideoView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="Deskripsi kontent"
+                        android:textColor="@color/GreyLight" />
+
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+            <LinearLayout
+                android:id="@+id/bottomsheet_komentarVideoView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/GreyDark"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                android:padding="20dp"
+                app:behavior_hideable="true"
+                app:behavior_peekHeight="55dp"
+                app:layout_behavior="@string/bottom_sheet_behavior">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:background="@color/Grey"
+                    android:text="@string/Komentar"
+                    android:textAlignment="center"
+                    android:textColor="@color/GreyLight" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/KomentarRecycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:id="@+id/tambahKomentarVideoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Tambahkan komentar..."
+                    android:textAlignment="center"
                     android:textColor="@color/GreyLight" />
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="blablabla basfklhaikrtae gawejkhiugawf kgawefbuykjVIw"
-                android:textColor="@color/GreyLight" />
+        </android.support.design.widget.CoordinatorLayout>
 
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

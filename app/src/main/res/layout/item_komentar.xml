@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Grey"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileKomentar"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/profile_example" />
+
+            <TextView
+                android:id="@+id/namaKomentar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="user name"
+                android:textColor="@color/GreyLight" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/Komentar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="blablabla basfklhaikrtae gawejkhiugawf kgawefbuykjVIw"
+            android:textColor="@color/GreyLight" />
+
+    </LinearLayout>
+
+</LinearLayout>
