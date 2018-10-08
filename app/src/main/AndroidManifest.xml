@@ -35,6 +35,7 @@
         <activity android:name=".ManagerVideoViewActivity" />
         <activity android:name=".AddProfileActivity" />
         <activity android:name=".GaleryActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>

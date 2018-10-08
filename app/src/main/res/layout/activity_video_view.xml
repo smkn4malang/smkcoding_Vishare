@@ -153,7 +153,7 @@
 
                                 <TextView
                                     android:id="@+id/SubscribeCountVideoView"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="0 Pengikut"
                                     android:textColor="@color/GreyLight"
@@ -190,7 +190,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Dupublikasikan pada"
+                                android:text="Dipublikasikan pada"
                                 android:textColor="@color/GreyLight"
                                 android:textSize="10sp" />
 
@@ -227,6 +227,17 @@
                         android:text="Deskripsi kontent"
                         android:textColor="@color/GreyLight" />
 
+                    <TextView
+                        android:id="@+id/KategoriVideoView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="Kategori : advance"
+                        android:textColor="@color/GreyLight"
+                        android:textSize="10sp" />
+
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
 
@@ -243,6 +254,7 @@
                 app:layout_behavior="@string/bottom_sheet_behavior">
 
                 <TextView
+                    android:id="@+id/KomenBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="18dp"

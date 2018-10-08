@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +22,8 @@ public class HomeActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
-    private ImageView user, search, searchClose;
+    private ImageView user, search, searchClose, searchBtn;
+    private EditText searchInput;
     private LinearLayout searchLayout, tobBar;
     private FirebaseAuth mAuth;
 
@@ -36,6 +38,9 @@ public class HomeActivity extends AppCompatActivity {
         search = findViewById(R.id.search);
         searchClose = findViewById(R.id.searchClose);
         searchLayout = findViewById(R.id.searchLayout);
+        searchBtn = findViewById(R.id.searchButton);
+        searchInput = findViewById(R.id.searchInput);
+
         tobBar = findViewById(R.id.TopBarHome);
         mAuth = FirebaseAuth.getInstance();
 
@@ -56,6 +61,16 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(new Intent(HomeActivity.this, GuestDetailActivity.class));
                     finish();
                 }
+            }
+        });
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String key = searchInput.getText().toString();
+                Intent search = new Intent(HomeActivity.this, SearchActivity.class);
+                search.putExtra("search_key", key);
+                startActivity(search);
             }
         });
 

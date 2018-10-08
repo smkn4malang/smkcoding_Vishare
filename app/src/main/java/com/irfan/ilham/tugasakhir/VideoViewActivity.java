@@ -1,17 +1,21 @@
 package com.irfan.ilham.tugasakhir;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -38,7 +42,7 @@ import org.w3c.dom.Text;
 public class VideoViewActivity extends AppCompatActivity {
 
     private VideoView videoView;
-    private TextView nama, tonton, komentar, uploader, deskripsi, dislikeCount, likeCount, tanggal, subscribe, subscribeCount;
+    private TextView nama, tonton, komentar, uploader, deskripsi, dislikeCount, likeCount, tanggal, subscribe, subscribeCount, komentarBtn, KategoriView;
     private RatingBar rating;
     private int tontonVideo, like, dislike;
     private RadioGroup radioGroup;
@@ -67,10 +71,26 @@ public class VideoViewActivity extends AppCompatActivity {
         tanggal = findViewById(R.id.TanggalVideoView);
         subscribe = findViewById(R.id.SubscribeVideoView);
         subscribeCount = findViewById(R.id.SubscribeCountVideoView);
+        komentarBtn = findViewById(R.id.KomenBtn);
+        KategoriView = findViewById(R.id.KategoriVideoView);
 
         listkomentar.setHasFixedSize(true);
         listkomentar.setLayoutManager(new LinearLayoutManager(VideoViewActivity.this));
         urlDatabase = getIntent().getExtras().getString("id_video");
+
+        View bottomSheet = findViewById(R.id.bottomsheet_komentarVideoView);
+        final BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
+
+        komentarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                } else {
+                    behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+        });
 
         FirebaseDatabase.getInstance().getReference("Video").child(urlDatabase).child("likedislike").addValueEventListener(new ValueEventListener() {
             @Override
@@ -188,7 +208,9 @@ public class VideoViewActivity extends AppCompatActivity {
                 String desc = dataSnapshot.child("deskripsi").getValue().toString();
                 UUID = dataSnapshot.child("UID").getValue().toString();
                 String Tanggal = dataSnapshot.child("tanggal").getValue().toString();
+                String Kategori = dataSnapshot.child("kategori").getValue().toString();
                 FirebaseDatabase.getInstance().getReference("Users").child(UUID).addValueEventListener(new ValueEventListener() {
+                    @SuppressLint("ResourceAsColor")
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String nama = dataSnapshot.child("nama").getValue().toString();
@@ -221,7 +243,7 @@ public class VideoViewActivity extends AppCompatActivity {
                     }
                 });
 
-
+                KategoriView.setText(Kategori);
                 nama.setText(namavideo);
                 tonton.setText(tontonVideo + "x ditonton");
                 tanggal.setText(Tanggal);
@@ -275,6 +297,7 @@ public class VideoViewActivity extends AppCompatActivity {
         listkomentar.setAdapter(firebaseRecyclerAdapter);
 
         subscribe.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
                 if (subscribe.getText().toString().equals("Diikuti")) {
