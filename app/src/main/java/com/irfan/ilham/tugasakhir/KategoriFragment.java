@@ -36,7 +36,7 @@ public class KategoriFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_kategori, container, false);
         list = view.findViewById(R.id.KategoriRecycleView);
         list.setHasFixedSize(true);
-        list.setLayoutManager(new LinearLayoutManager(getActivity()));
+        list.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         return view;
     }
 
@@ -46,49 +46,18 @@ public class KategoriFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference("Kategori");
         FirebaseRecyclerAdapter<KategoriItems, ViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<KategoriItems, ViewHolder>(KategoriItems.class, R.layout.item_kategori, ViewHolder.class, mDatabase) {
             @Override
-            protected void populateViewHolder(ViewHolder viewHolder, KategoriItems model, int position) {
+            protected void populateViewHolder(ViewHolder viewHolder, final KategoriItems model, int position) {
                 viewHolder.setNamaKategori(model.getNamaKategori());
-                viewHolder.kontenRecycleView.setHasFixedSize(true);
-                viewHolder.kontenRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-                String kategori = model.getNamaKategori();
+                final String key = model.getNamaKategori();
 
-                Query dbRef = FirebaseDatabase.getInstance().getReference().child("Video").orderByChild("kategori").startAt(kategori).endAt(kategori + "\uf8ff");
-                FirebaseRecyclerAdapter<VideoItems, ViewHolder2> fra = new FirebaseRecyclerAdapter<VideoItems, ViewHolder2>(VideoItems.class, R.layout.item_video_content, ViewHolder2.class, dbRef) {
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    protected void populateViewHolder(final ViewHolder2 viewHolder, VideoItems model, int position) {
-                        final String post_key = getRef(position).getKey();
-                        viewHolder.setNama(model.getNamaVideo());
-                        viewHolder.setRating(model.getRating());
-                        viewHolder.setTonton(model.getTonton());
-
-                        String UID = model.getUID();
-                        if (!UID.isEmpty()) {
-                            FirebaseDatabase.getInstance().getReference("Users").child(UID).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    String nama = dataSnapshot.child("nama").getValue().toString();
-                                    viewHolder.setUploader(nama);
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-
-                        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent in = new Intent(getActivity(), VideoViewActivity.class);
-                                in.putExtra("id_video", post_key);
-                                startActivity(in);
-                                getActivity().finish();
-                            }
-                        });
+                    public void onClick(View view) {
+                        Intent search = new Intent(getActivity(), KategoriActivity.class);
+                        search.putExtra("kategori_key", key);
+                        startActivity(search);
                     }
-                };
-                viewHolder.kontenRecycleView.setAdapter(fra);
+                });
             }
         };
         list.setAdapter(firebaseRecyclerAdapter);
@@ -96,46 +65,14 @@ public class KategoriFragment extends Fragment {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         View mView;
-        RecyclerView kontenRecycleView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            kontenRecycleView = mView.findViewById(R.id.KategoriNestedRecycleView);
         }
 
         public void setNamaKategori(String nama) {
             TextView nama_view = mView.findViewById(R.id.namaKategoriView);
-            nama_view.setText(nama);
-        }
-    }
-
-    public static class ViewHolder2 extends RecyclerView.ViewHolder {
-
-        View mView;
-
-        public ViewHolder2(View itemView) {
-            super(itemView);
-            mView = itemView;
-        }
-
-        public void setNama(String nama) {
-            TextView nama_view = mView.findViewById(R.id.namaVideoContent);
-            nama_view.setText(nama);
-        }
-
-        public void setTonton(int viewers) {
-            TextView tonton_view = mView.findViewById(R.id.TontonVideoContent);
-            tonton_view.setText(viewers + "x ditonton");
-        }
-
-        public void setRating(float rating) {
-            RatingBar rating_view = mView.findViewById(R.id.ratingVideoContent);
-            rating_view.setRating(rating);
-        }
-
-        public void setUploader(String nama) {
-            TextView nama_view = mView.findViewById(R.id.NamaUploaderVideoContent);
             nama_view.setText(nama);
         }
     }
