@@ -1,22 +1,30 @@
 package com.irfan.ilham.tugasakhir;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class KategoriActivity extends AppCompatActivity {
 
@@ -52,13 +60,25 @@ public class KategoriActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mDatabase = FirebaseDatabase.getInstance().getReference("Video").orderByChild("kategori").startAt(SearchKey).endAt(SearchKey + "\uf8ff");
-        FirebaseRecyclerAdapter<VideoItems, SearchActivity.ViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<VideoItems, SearchActivity.ViewHolder>(VideoItems.class, R.layout.item_video_content, SearchActivity.ViewHolder.class, mDatabase) {
+        FirebaseRecyclerAdapter<VideoItems, ViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<VideoItems, ViewHolder>(VideoItems.class, R.layout.item_video_content, ViewHolder.class, mDatabase) {
             @Override
-            protected void populateViewHolder(final SearchActivity.ViewHolder viewHolder, VideoItems model, int position) {
+            protected void populateViewHolder(final ViewHolder viewHolder, VideoItems model, int position) {
                 final String post_key = getRef(position).getKey();
                 viewHolder.setNama(model.getNamaVideo());
                 viewHolder.setRating(model.getRating());
                 viewHolder.setTonton(model.getTonton());
+
+                String thumbnail = model.getThumbnailUrl();
+                StorageReference thumb = FirebaseStorage.getInstance().getReferenceFromUrl(thumbnail);
+                thumb.getBytes(1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        DisplayMetrics dm = new DisplayMetrics();
+                        getWindowManager().getDefaultDisplay().getMetrics(dm);
+                        viewHolder.setThumbnail(dm.heightPixels, dm.widthPixels, bm);
+                    }
+                });
 
                 String UID = model.getUID();
                 if (!UID.isEmpty()) {
@@ -66,7 +86,18 @@ public class KategoriActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String nama = dataSnapshot.child("nama").getValue().toString();
+                            String ImgUrl = dataSnapshot.child("imgUrl").getValue().toString();
                             viewHolder.setUploader(nama);
+                            StorageReference profile = FirebaseStorage.getInstance().getReferenceFromUrl(ImgUrl);
+                            profile.getBytes(512 * 512).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                @Override
+                                public void onSuccess(byte[] bytes) {
+                                    Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                    DisplayMetrics dm = new DisplayMetrics();
+                                    getWindowManager().getDefaultDisplay().getMetrics(dm);
+                                    viewHolder.setProfile(dm.heightPixels, dm.widthPixels, bm);
+                                }
+                            });
                         }
 
                         @Override
@@ -117,6 +148,20 @@ public class KategoriActivity extends AppCompatActivity {
         public void setUploader(String nama) {
             TextView nama_view = mView.findViewById(R.id.NamaUploaderVideoContent);
             nama_view.setText(nama);
+        }
+
+        public void setProfile(int heigh, int width, Bitmap image) {
+            CircleImageView profile = mView.findViewById(R.id.ProfileUploaderVideoContent);
+            profile.setMinimumHeight(heigh);
+            profile.setMinimumWidth(width);
+            profile.setImageBitmap(image);
+        }
+
+        public void setThumbnail(int heigh, int width, Bitmap image) {
+            ImageView profile = mView.findViewById(R.id.ThumbnailVideoContent);
+            profile.setMinimumHeight(heigh);
+            profile.setMinimumWidth(width);
+            profile.setImageBitmap(image);
         }
     }
 }

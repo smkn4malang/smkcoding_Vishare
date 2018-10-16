@@ -44,6 +44,46 @@
             android:text="blablabla basfklhaikrtae gawejkhiugawf kgawefbuykjVIw"
             android:textColor="@color/GreyLight" />
 
+        <LinearLayout
+            android:id="@+id/komenDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/editKomen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@color/GreyBackground"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/icon_edit"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Edit"
+                android:textColor="@color/GreenLight"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/hapusKomen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@color/GreyBackground"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/icon_delete"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Hapus"
+                android:textColor="@color/GreenLight"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/GreyBackground"
     android:orientation="vertical"
-    tools:context=".UploadActivity">
+    android:background="@color/GreyBackground"
+    tools:context=".EditVideoActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -56,13 +56,13 @@
                     android:textSize="20sp" />
 
                 <VideoView
-                    android:id="@+id/uploadVideoContent"
+                    android:id="@+id/uploadEditVideoContent"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_margin="10dp" />
 
                 <LinearLayout
-                    android:id="@+id/uploadtextVideoContent"
+                    android:id="@+id/uploadtextEditVideoContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -108,7 +108,7 @@
                     android:textSize="15sp" />
 
                 <ImageView
-                    android:id="@+id/ThumbnailUploadVideo"
+                    android:id="@+id/ThumbnailEditUploadVideo"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
@@ -124,7 +124,7 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/judulUploadVideo"
+                    android:id="@+id/judulEditUploadVideo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/GreyDark"
@@ -146,7 +146,7 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/DeskripsiUploadVideo"
+                    android:id="@+id/DeskripsiEditUploadVideo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/GreyDark"
@@ -168,14 +168,14 @@
                     android:textSize="15sp" />
 
                 <Spinner
-                    android:id="@+id/KategoriUploadVideo"
+                    android:id="@+id/KategoriEditUploadVideo"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"></Spinner>
 
             </LinearLayout>
 
             <ProgressBar
-                android:id="@+id/progresUploadVideo"
+                android:id="@+id/progresEditUploadVideo"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 style="@android:style/Widget.ProgressBar.Horizontal"
@@ -186,7 +186,7 @@
                 android:layout_marginTop="5dp"/>
 
             <Button
-                android:id="@+id/btnUploadVideo"
+                android:id="@+id/btnEditUploadVideo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -194,14 +194,14 @@
                 android:text="@string/Upload" />
 
             <LinearLayout
-                android:id="@+id/btnGroupUploadVideo"
+                android:id="@+id/btnGroupEditUploadVideo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:visibility="gone">
 
                 <Button
-                    android:id="@+id/btnPauseVideo"
+                    android:id="@+id/btnEditPauseVideo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -211,7 +211,7 @@
                     android:layout_marginRight="5dp"/>
 
                 <Button
-                    android:id="@+id/btnCancelVideo"
+                    android:id="@+id/btnEditCancelVideo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

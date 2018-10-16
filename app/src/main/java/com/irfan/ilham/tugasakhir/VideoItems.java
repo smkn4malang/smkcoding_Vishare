@@ -20,6 +20,16 @@ public class VideoItems {
 
     private String namaVideo;
     private String videoUrl;
+    private String thumbnailUrl;
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
     private int tonton;
     private float rating;
 

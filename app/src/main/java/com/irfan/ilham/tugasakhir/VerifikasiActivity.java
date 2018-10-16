@@ -23,6 +23,7 @@ public class VerifikasiActivity extends AppCompatActivity {
 
     private TextView user, email;
     private Button lanjut;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,12 +66,8 @@ public class VerifikasiActivity extends AppCompatActivity {
         lanjut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (user.isEmailVerified()) {
-                    startActivity(new Intent(VerifikasiActivity.this, AddProfileActivity.class));
-                    finish();
-                } else {
-                    Toast.makeText(VerifikasiActivity.this, "Email belum di verifikasi!", Toast.LENGTH_SHORT).show();
-                }
+                startActivity(new Intent(VerifikasiActivity.this, AddProfileActivity.class));
+                finish();
             }
         });
     }

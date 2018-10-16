@@ -3,6 +3,8 @@
     package="com.irfan.ilham.tugasakhir">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -36,7 +38,11 @@
         <activity android:name=".AddProfileActivity" />
         <activity android:name=".GaleryActivity" />
         <activity android:name=".SearchActivity" />
-        <activity android:name=".KategoriActivity"></activity>
+        <activity android:name=".KategoriActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".EditVideoActivity"></activity>
     </application>
 
 </manifest>

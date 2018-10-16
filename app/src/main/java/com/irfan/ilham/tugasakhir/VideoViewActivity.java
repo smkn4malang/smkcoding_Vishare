@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.RadioButton;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,8 +38,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class VideoViewActivity extends AppCompatActivity {
 
@@ -45,10 +51,14 @@ public class VideoViewActivity extends AppCompatActivity {
     private TextView nama, tonton, komentar, uploader, deskripsi, dislikeCount, likeCount, tanggal, subscribe, subscribeCount, komentarBtn, KategoriView;
     private RatingBar rating;
     private int tontonVideo, like, dislike;
+    private String urlVideo, urlImage;
+    private LinearLayout EditGroup;
+    private ImageView btnEdit, btnDelete;
     private RadioGroup radioGroup;
     private RadioButton dislikeRadio, likeRadio;
     private String urlDatabase, UploaderUID, UUID;
     private RecyclerView listkomentar;
+    private CircleImageView uploaderImg;
     private DatabaseReference mDatabase;
 
     @Override
@@ -73,6 +83,10 @@ public class VideoViewActivity extends AppCompatActivity {
         subscribeCount = findViewById(R.id.SubscribeCountVideoView);
         komentarBtn = findViewById(R.id.KomenBtn);
         KategoriView = findViewById(R.id.KategoriVideoView);
+        EditGroup = findViewById(R.id.EditVideoViewGroup);
+        btnEdit = findViewById(R.id.EditVideoView);
+        btnDelete = findViewById(R.id.DeleteVideoView);
+        uploaderImg = findViewById(R.id.UploaderImgVideoView);
 
         listkomentar.setHasFixedSize(true);
         listkomentar.setLayoutManager(new LinearLayoutManager(VideoViewActivity.this));
@@ -125,9 +139,22 @@ public class VideoViewActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                FirebaseDatabase.getInstance().getReference("Video").child(urlDatabase).child("rating").setValue(rating);
-                likeCount.setText(like + " like");
-                dislikeCount.setText(dislike + " dislike");
+                final double finalRating = rating;
+                FirebaseDatabase.getInstance().getReference("Video").child(urlDatabase).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild("namaVideo")) {
+                            FirebaseDatabase.getInstance().getReference("Video").child(urlDatabase).child("rating").setValue(finalRating);
+                            likeCount.setText(like + " like");
+                            dislikeCount.setText(dislike + " dislike");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -201,56 +228,64 @@ public class VideoViewActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String namavideo = dataSnapshot.child("namaVideo").getValue().toString();
-                String urlVideo = dataSnapshot.child("videoUrl").getValue().toString();
-                tontonVideo = Integer.parseInt(dataSnapshot.child("tonton").getValue().toString());
-                float ratingVideo = Float.parseFloat(dataSnapshot.child("rating").getValue().toString());
-                String desc = dataSnapshot.child("deskripsi").getValue().toString();
-                UUID = dataSnapshot.child("UID").getValue().toString();
-                String Tanggal = dataSnapshot.child("tanggal").getValue().toString();
-                String Kategori = dataSnapshot.child("kategori").getValue().toString();
-                FirebaseDatabase.getInstance().getReference("Users").child(UUID).addValueEventListener(new ValueEventListener() {
-                    @SuppressLint("ResourceAsColor")
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String nama = dataSnapshot.child("nama").getValue().toString();
-                        uploader.setText(nama);
+                if (dataSnapshot.hasChild("namaVideo")) {
+                    String namavideo = dataSnapshot.child("namaVideo").getValue().toString();
+                    urlVideo = dataSnapshot.child("videoUrl").getValue().toString();
+                    urlImage = dataSnapshot.child("thumbnailUrl").getValue().toString();
+                    tontonVideo = Integer.parseInt(dataSnapshot.child("tonton").getValue().toString());
+                    float ratingVideo = Float.parseFloat(dataSnapshot.child("rating").getValue().toString());
+                    String desc = dataSnapshot.child("deskripsi").getValue().toString();
+                    UUID = dataSnapshot.child("UID").getValue().toString();
+                    String Tanggal = dataSnapshot.child("tanggal").getValue().toString();
+                    String Kategori = dataSnapshot.child("kategori").getValue().toString();
+                    FirebaseDatabase.getInstance().getReference("Users").child(UUID).addValueEventListener(new ValueEventListener() {
+                        @SuppressLint("ResourceAsColor")
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String nama = dataSnapshot.child("nama").getValue().toString();
+                            String urlImg = dataSnapshot.child("imgUrl").getValue().toString();
+                            Glide.with(uploaderImg.getContext()).load(urlImg).override(100, 100).into(uploaderImg);
+                            uploader.setText(nama);
 
-                        if (!UUID.isEmpty()) {
-                            if (UUID.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                                subscribe.setVisibility(View.INVISIBLE);
+                            if (!UUID.isEmpty()) {
+                                if (UUID.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                    subscribe.setVisibility(View.GONE);
+                                    EditGroup.setVisibility(View.VISIBLE);
+
+                                } else {
+                                    subscribe.setVisibility(View.VISIBLE);
+                                    EditGroup.setVisibility(View.GONE);
+                                }
+                            }
+
+                            int subs = (int) dataSnapshot.child("Subscriber").getChildrenCount();
+                            subscribeCount.setText(subs + " pengikut");
+
+
+                            if (dataSnapshot.child("Subscriber").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).hasChildren()) {
+                                if (dataSnapshot.child("Subscriber").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("value").getValue().toString().equals("subcribed")) {
+                                    subscribe.setText("Diikuti");
+                                }
                             } else {
-                                subscribe.setVisibility(View.VISIBLE);
+                                subscribe.setText("Ikuti");
                             }
                         }
 
-                        int subs = (int) dataSnapshot.child("Subscriber").getChildrenCount();
-                        subscribeCount.setText(subs + " pengikut");
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
-                        if (dataSnapshot.child("Subscriber").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).hasChildren()) {
-                            if (dataSnapshot.child("Subscriber").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("value").getValue().toString().equals("subcribed")) {
-                                subscribe.setText("Diikuti");
-                            }
-                        } else {
-                            subscribe.setText("Ikuti");
                         }
-                    }
+                    });
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-                KategoriView.setText(Kategori);
-                nama.setText(namavideo);
-                tonton.setText(tontonVideo + "x ditonton");
-                tanggal.setText(Tanggal);
-                rating.setRating(ratingVideo);
-                deskripsi.setText(desc);
-                videoView.setVideoURI(Uri.parse(urlVideo));
-                videoView.start();
+                    KategoriView.setText(Kategori);
+                    nama.setText(namavideo);
+                    tonton.setText(tontonVideo + "x ditonton");
+                    tanggal.setText(Tanggal);
+                    rating.setRating(ratingVideo);
+                    deskripsi.setText(desc);
+                    videoView.setVideoURI(Uri.parse(urlVideo));
+                    videoView.start();
+                }
             }
 
             @Override
@@ -273,17 +308,82 @@ public class VideoViewActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference("Video").child(urlDatabase).child("komentar");
         FirebaseRecyclerAdapter<KomentarItems, ViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<KomentarItems, ViewHolder>(KomentarItems.class, R.layout.item_komentar, VideoViewActivity.ViewHolder.class, mDatabase) {
             @Override
-            protected void populateViewHolder(final ViewHolder viewHolder, KomentarItems model, int position) {
+            protected void populateViewHolder(final ViewHolder viewHolder, final KomentarItems model, final int position) {
                 viewHolder.setKomentar(model.getKomentar());
                 UploaderUID = model.getUID();
 
+                viewHolder.hapus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(VideoViewActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        LayoutInflater layoutInflater = LayoutInflater.from(VideoViewActivity.this);
+                        builder.setTitle("Hapus Komentar!");
+                        builder.setMessage("Apakah anda yakin menghapus komentar ini ?");
+
+                        builder.setPositiveButton("Iya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                getRef(position).removeValue();
+                            }
+                        });
+                        builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+                });
+
+                viewHolder.edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(VideoViewActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        LayoutInflater layoutInflater = LayoutInflater.from(VideoViewActivity.this);
+                        final View myView = layoutInflater.inflate(R.layout.dialog_add_komentar, null);
+                        TextView tv = myView.findViewById(R.id.addKomentarDialog);
+                        tv.setText(model.getKomentar());
+
+                        builder.setView(myView);
+                        builder.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String namaKategori;
+                                EditText namaInput = myView.findViewById(R.id.addKomentarDialog);
+                                namaKategori = namaInput.getText().toString().trim();
+                                getRef(position).child("komentar").setValue(namaKategori);
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
+                });
+
                 if (!model.getUID().isEmpty()) {
+
+                    if (UploaderUID.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                        LinearLayout ll = viewHolder.mView.findViewById(R.id.komenDetail);
+                        ll.setVisibility(View.VISIBLE);
+                    } else {
+                        LinearLayout ll = viewHolder.mView.findViewById(R.id.komenDetail);
+                        ll.setVisibility(View.GONE);
+                    }
+
                     FirebaseDatabase.getInstance().getReference("Users").child(UploaderUID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String nama = dataSnapshot.child("nama").getValue().toString();
                             viewHolder.setNama(nama);
-
                         }
 
                         @Override
@@ -295,6 +395,45 @@ public class VideoViewActivity extends AppCompatActivity {
             }
         };
         listkomentar.setAdapter(firebaseRecyclerAdapter);
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(VideoViewActivity.this, EditVideoActivity.class);
+                i.putExtra("videoKey", urlDatabase);
+                startActivity(i);
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(VideoViewActivity.this, "Tunggu sebentar...", Toast.LENGTH_SHORT).show();
+                StorageReference sr = FirebaseStorage.getInstance().getReferenceFromUrl(urlVideo);
+                sr.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        FirebaseStorage.getInstance().getReferenceFromUrl(urlImage).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                FirebaseDatabase.getInstance().getReference("Video").child(urlDatabase).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        startActivity(new Intent(VideoViewActivity.this, HomeActivity.class));
+                                        Toast.makeText(VideoViewActivity.this, "Video Berhasil di hapus", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(VideoViewActivity.this, "Video Gagal Di Hapus!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
         subscribe.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
@@ -314,10 +453,15 @@ public class VideoViewActivity extends AppCompatActivity {
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
+        TextView hapus, edit;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+
+            hapus = mView.findViewById(R.id.hapusKomen);
+            edit = mView.findViewById(R.id.editKomen);
+
         }
 
         public void setKomentar(String nama) {
