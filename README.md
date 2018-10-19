@@ -1,4 +1,6 @@
 # Vishare
+<img src="https://github.com/smkn4malang/smkcoding_Vishare/blob/master/profile.png" data-canonical-src="https://github.com/smkn4malang/smkcoding_Vishare/blob/master/profile.png" height="300" />
+
 Video share is a social media application for video content.
 
 ## Getting Started
