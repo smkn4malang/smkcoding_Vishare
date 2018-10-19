@@ -61,26 +61,22 @@ public class HomeFragment extends Fragment {
                 viewHolder.setTonton(model.getTonton());
 
                 String thumbnail = model.getThumbnailUrl();
-                StorageReference thumb = FirebaseStorage.getInstance().getReferenceFromUrl(thumbnail);
-                thumb.getBytes(1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        DisplayMetrics dm = new DisplayMetrics();
-                        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-                        viewHolder.setThumbnail(dm.heightPixels, dm.widthPixels, bm);
-                    }
-                });
+
+                viewHolder.setThumbnail(thumbnail);
+
+                final String[] ImgUrl = {""};
 
                 String UID = model.getUID();
                 if (!UID.isEmpty()) {
                     FirebaseDatabase.getInstance().getReference("Users").child(UID).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String nama = dataSnapshot.child("nama").getValue().toString();
-                            String ImgUrl = dataSnapshot.child("imgUrl").getValue().toString();
-                            viewHolder.setUploader(nama);
-                            viewHolder.setProfile(ImgUrl);
+                            if (dataSnapshot.hasChild("nama")) {
+                                String nama = dataSnapshot.child("nama").getValue().toString();
+                                ImgUrl[0] = dataSnapshot.child("imgUrl").getValue().toString();
+                                viewHolder.setUploader(nama);
+                            }
+
                         }
 
                         @Override
@@ -89,6 +85,8 @@ public class HomeFragment extends Fragment {
                         }
                     });
                 }
+
+                viewHolder.setProfile(ImgUrl[0]);
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -138,11 +136,9 @@ public class HomeFragment extends Fragment {
             Glide.with(profile.getContext()).load(image).override(100, 100).into(profile);
         }
 
-        public void setThumbnail(int heigh, int width, Bitmap image) {
+        public void setThumbnail(String image) {
             ImageView profile = mView.findViewById(R.id.ThumbnailVideoContent);
-            profile.setMinimumHeight(heigh);
-            profile.setMinimumWidth(width);
-            profile.setImageBitmap(image);
+            Glide.with(profile.getContext()).load(image).override(1000, 1000).into(profile);
         }
     }
 }

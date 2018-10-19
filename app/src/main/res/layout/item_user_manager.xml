@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/bg_white"
-                        android:text="1024"
+                        android:text="0"
                         android:textAlignment="center"
                         android:textColor="@color/GreyDark"
                         android:textSize="12sp" />
@@ -77,10 +77,12 @@
 
                 <TextView
                     android:id="@+id/videoItemUser"
-                    android:layout_width="30dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:background="@drawable/bg_white"
                     android:text="14"
                     android:textAlignment="center"
@@ -97,15 +99,6 @@
                     android:textColor="@color/GreyLight"
                     android:textSize="12sp" />
 
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginTop="10dp"
-                    android:stepSize="0.5"
-                    android:numStars="5"
-                    android:rating="5"
-                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
-                    android:isIndicator="false"/>
             </LinearLayout>
 
         </LinearLayout>

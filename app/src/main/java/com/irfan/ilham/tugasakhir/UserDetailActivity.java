@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -26,6 +27,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,13 +44,14 @@ public class UserDetailActivity extends AppCompatActivity {
     private ViewPagerAdapterUser viewPagerAdapter;
     private FloatingActionButton plus, edit, upload, logOut;
     private Animation fabOpen, fabCLose, fabClockwise, fabAntiClockwise;
-    private TextView kembali, userName;
+    private TextView kembali, userName, follow, video;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseUserReference = firebaseDatabase.getReference("Users");
     private StorageReference mStorageRef;
     private ImageView profileBG;
     private CircleImageView profile;
     private ProgressBar progres;
+    private int videoUser;
     private boolean UserTabIsOpen = false;
 
     @Override
@@ -67,6 +70,8 @@ public class UserDetailActivity extends AppCompatActivity {
         profileBG = findViewById(R.id.ProfileBG);
         profile = findViewById(R.id.ProfileDetails);
         progres = findViewById(R.id.progresProfile);
+        follow = findViewById(R.id.followerDetail);
+        video = findViewById(R.id.uploadCountDetail);
 
         mStorageRef = FirebaseStorage.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
@@ -105,13 +110,40 @@ public class UserDetailActivity extends AppCompatActivity {
         UserReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String name = dataSnapshot.child("nama").getValue().toString();
-                userName.setText(name);
+                if (dataSnapshot.hasChild("nama")) {
+                    String name = dataSnapshot.child("nama").getValue().toString();
+                    userName.setText(name);
+
+                    int subs = (int) dataSnapshot.child("Subscriber").getChildrenCount();
+                    follow.setText(subs + " pengikut");
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(UserDetailActivity.this, "Gagal memuat data", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        FirebaseDatabase.getInstance().getReference("Video").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                videoUser = 0;
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if (ds.hasChild("UID")) {
+                        if (ds.child("UID").getValue().toString().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                            videoUser += 1;
+                        }
+
+                    }
+                }
+
+                video.setText(videoUser + " Video");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 

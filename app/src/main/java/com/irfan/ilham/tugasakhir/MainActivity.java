@@ -1,13 +1,16 @@
 package com.irfan.ilham.tugasakhir;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,12 +19,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -108,18 +113,86 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
                                 admin = false;
-                                Toast.makeText(MainActivity.this, "Log In Berhasil", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                                finish();
                             }
                         });
 
                     }
                 }
                 if (!admin && !alert) {
-                    Toast.makeText(MainActivity.this, "Log In Berhasil", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                    finish();
+                    FirebaseDatabase.getInstance().getReference("Users").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                Toast.makeText(MainActivity.this, "Log In Berhasil", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                finish();
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                                LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+                                builder.setTitle("Upss!");
+                                builder.setMessage("Akun anda di hapus oleh admin!");
+
+                                builder.setPositiveButton("Hapus Akun", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        FirebaseStorage.getInstance().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+
+                                            }
+                                        });
+
+                                        FirebaseDatabase.getInstance().getReference("Video").addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot ds1: dataSnapshot.getChildren()) {
+                                                    if (ds1.hasChild("komentar")) {
+                                                        for (DataSnapshot dsKomen: ds1.child("komentar").getChildren()) {
+                                                            if (dsKomen.child("UID").getValue().toString().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                                                dsKomen.getRef().removeValue();
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if (ds1.hasChild("likedislike")) {
+                                                        for (DataSnapshot dsLike: ds1.child("likedislike").getChildren()) {
+                                                            if (dsLike.getKey().toString().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                                                dsLike.getRef().removeValue();
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if (ds1.hasChild("UID")) {
+                                                        if (ds1.child("UID").getValue().toString().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                                            ds1.getRef().removeValue();
+                                                        }
+                                                    }
+
+                                                    finish();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                        Toast.makeText(MainActivity.this, "User berhasil dihapus!", Toast.LENGTH_SHORT).show();
+                                        FirebaseAuth.getInstance().getCurrentUser().delete();
+                                        startActivity(new Intent(MainActivity.this, ChooseActivity.class));
+                                    }
+                                });
+
+                                AlertDialog alertDialog = builder.create();
+                                alertDialog.show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
 

@@ -60,6 +60,7 @@ public class VideoViewActivity extends AppCompatActivity {
     private RecyclerView listkomentar;
     private CircleImageView uploaderImg;
     private DatabaseReference mDatabase;
+    private boolean rat = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,22 +140,15 @@ public class VideoViewActivity extends AppCompatActivity {
                         break;
                     }
                 }
+
                 final double finalRating = rating;
-                FirebaseDatabase.getInstance().getReference("Video").child(urlDatabase).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild("namaVideo")) {
-                            FirebaseDatabase.getInstance().getReference("Video").child(urlDatabase).child("rating").setValue(finalRating);
-                            likeCount.setText(like + " like");
-                            dislikeCount.setText(dislike + " dislike");
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                if (rat) {
+                    FirebaseDatabase.getInstance().getReference("Video").child(urlDatabase).child("rating").setValue(finalRating);
+                }
 
-                    }
-                });
+                likeCount.setText(like + " like");
+                dislikeCount.setText(dislike + " dislike");
             }
 
             @Override
@@ -229,6 +223,7 @@ public class VideoViewActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild("namaVideo")) {
+                    rat = true;
                     String namavideo = dataSnapshot.child("namaVideo").getValue().toString();
                     urlVideo = dataSnapshot.child("videoUrl").getValue().toString();
                     urlImage = dataSnapshot.child("thumbnailUrl").getValue().toString();
@@ -285,6 +280,8 @@ public class VideoViewActivity extends AppCompatActivity {
                     deskripsi.setText(desc);
                     videoView.setVideoURI(Uri.parse(urlVideo));
                     videoView.start();
+                } else {
+                    rat = false;
                 }
             }
 
@@ -323,7 +320,9 @@ public class VideoViewActivity extends AppCompatActivity {
                         builder.setPositiveButton("Iya", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                getRef(position).removeValue();
+                                if (getRef(position) != null) {
+                                    getRef(position).removeValue();
+                                }
                             }
                         });
                         builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
@@ -369,7 +368,7 @@ public class VideoViewActivity extends AppCompatActivity {
                     }
                 });
 
-                if (!model.getUID().isEmpty()) {
+                if (model.getUID() != null) {
 
                     if (UploaderUID.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                         LinearLayout ll = viewHolder.mView.findViewById(R.id.komenDetail);
@@ -383,6 +382,8 @@ public class VideoViewActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String nama = dataSnapshot.child("nama").getValue().toString();
+                            String ImgUrl = dataSnapshot.child("imgUrl").getValue().toString();
+                            viewHolder.setProfile(ImgUrl);
                             viewHolder.setNama(nama);
                         }
 
@@ -472,6 +473,11 @@ public class VideoViewActivity extends AppCompatActivity {
         public void setNama(String nama) {
             TextView nama_view = mView.findViewById(R.id.namaKomentar);
             nama_view.setText(nama);
+        }
+
+        public void setProfile(String image) {
+            CircleImageView profile = mView.findViewById(R.id.profileKomentar);
+            Glide.with(profile.getContext()).load(image).override(100, 100).into(profile);
         }
     }
 }
